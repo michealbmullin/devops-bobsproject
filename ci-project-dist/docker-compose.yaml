@@ -11,5 +11,7 @@ services:
                 build: ./mongo-service
                 ports:
                     - target: 3000
+                depends_on:
+                         - mongo
 volumes:
         mongodata:
