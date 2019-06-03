@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+        mongo:
+                image: mongo
+                volumes:
+                     - type: volume
+                       source: mongodata
+                       target: /var/lib/mongodb
+        mongo-service:
+                image: michealbmullin/proj/mongoservice
+                build: ./mongo-service
+                ports:
+                    - target: 3000
+volumes:
+        mongodata:
