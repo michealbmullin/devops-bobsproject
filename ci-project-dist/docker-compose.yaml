@@ -7,18 +7,85 @@ services:
                        source: mongodata
                        target: /data/db
         mongo-service:
-                image: michealbmullin/proj/mongoservice
+                image: michealbmullin/projmongo
                 build: ./mongo-service
                 ports:
                     - target: 3000
                 depends_on:
                          - mongo
         secret-service:
-                image: michealbmullin/proj/secretservice
+                image: michealbmullin/projsec
                 build: ./secret-service
                 ports:
                     - target: 3000
                 depends_on:
                         - mongo-service
+        email-service:
+                image: michealbmullin/projemail
+                build: ./email-service
+                ports:
+                    - target: 3000
+                depends_on:
+                         - mongo-service
+                         - aes-encryption-service
+                env_file:
+                       - ~/email-variables.env
+        session-token-service:
+                image: michealbmullin/projsession
+                build: ./session-token-service
+                ports:
+                   - target: 3000
+                depends_on:
+                        - mongo-service
+                        - aes-encryption-service
+        aes-encryption-service:
+                image: michealbmullin/projaesencrypt
+                build: ./aes-encryption-service
+                ports:
+                    - target: 3000
+        account-service:
+                image: michealbmullin/pojaccount
+                build: ./account-service
+                ports:
+                   - target: 3000
+                depends_on:
+                         - secret-service
+        dashboard-service:
+                image: michealbmullin/projdashboardserv
+                build: ./dashboard-service
+                ports:
+                    - target: 3000
+                depends_on:
+                         - account-service
+                         - session-token-service
+        authentication-service:
+               image: michealbmullin/projauthenserv
+               build: ./authentication-service
+               ports:
+                   - target: 3000
+               depends_on:
+                        - account-service
+                        - email-service
+                        - session-token-service
+        dashboard-client:
+               image: michealbmullin/projdashboardcli
+               build: ./dashboard-client
+               ports:
+                   - target: 8080
+        authentication-client:
+               image: michealbmullin/projauthenticationcli
+               build: ./authentication-client
+               ports:
+                   - target: 8080
+        gateway:
+               image: michealbmullin/projgateway
+               build: ./gateway
+               ports:
+                   - target: 80
+                     published: 80
+               depends_on:
+                        - dashboard-client
+                        - authentication-client
+                        - authentication-service            
 volumes:
         mongodata:
