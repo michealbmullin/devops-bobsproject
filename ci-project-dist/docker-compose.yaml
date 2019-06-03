@@ -5,7 +5,7 @@ services:
                 volumes:
                      - type: volume
                        source: mongodata
-                       target: /var/lib/mongodb
+                       target: /data/db
         mongo-service:
                 image: michealbmullin/proj/mongoservice
                 build: ./mongo-service
@@ -13,5 +13,12 @@ services:
                     - target: 3000
                 depends_on:
                          - mongo
+        secret-service:
+                image: michealbmullin/proj/secretservice
+                build: ./secret-service
+                ports:
+                    - target: 3000
+                depends_on:
+                        - mongo-service
 volumes:
         mongodata:
