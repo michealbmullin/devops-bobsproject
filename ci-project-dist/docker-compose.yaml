@@ -70,6 +70,12 @@ services:
                depends_on:
                         - dashboard-client
                         - authentication-client
-                        - authentication-service            
+                        - authentication-service
+        role-service:
+               image: michealbmullin/projroleserv
+               build: ./role-service
+        group-service:
+               image: michealbmullin/projgroupserv
+               build: ./group-service
 volumes:
         mongodata2:
