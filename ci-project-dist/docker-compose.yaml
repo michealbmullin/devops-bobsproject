@@ -4,7 +4,7 @@ services:
                 image: mongo
                 volumes:
                      - type: volume
-                       source: mongodata
+                       source: mongodata2
                        target: /data/db
         mongo-service:
                 image: michealbmullin/projmongo
@@ -22,8 +22,10 @@ services:
                 depends_on:
                          - mongo-service
                          - aes-encryption-service
-                env_file:
-                       - ~/email-variables.env
+                environment:
+                         GMAIL_USER: ${GMAIL_USER}
+                         GMAIL_PASS: ${GMAIL_PASS}
+                         SERVICE_NAME: ${SERVICE_NAME}
         session-token-service:
                 image: michealbmullin/projsession
                 build: ./session-token-service
@@ -47,6 +49,8 @@ services:
         authentication-service:
                image: michealbmullin/projauthenserv
                build: ./authentication-service
+               environment:
+                           ACTIVATION_LINK: ${ACTIVATION_LINK}
                depends_on:
                         - account-service
                         - email-service
@@ -68,4 +72,4 @@ services:
                         - authentication-client
                         - authentication-service            
 volumes:
-        mongodata:
+        mongodata2:
