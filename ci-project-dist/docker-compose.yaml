@@ -7,29 +7,29 @@ services:
                        source: mongodata
                        target: /data/db
         mongo-service:
-                image: michealbmullin/projmongo:{BUILD_NUMBER}
+                image: michealbmullin/projmongo:${BUILD_NUMBER}
                 build: ./mongo-service
                 depends_on:
                          - mongo
         secret-service:
-                image: michealbmullin/projsec:{BUILD_NUMBER}
+                image: michealbmullin/projsec:${BUILD_NUMBER}
                 build: ./secret-service
                 depends_on:
                         - mongo-service
         email-service:
-                image: michealbmullin/projemail:{BUILD_NUMBER}
+                image: michealbmullin/projemail:${BUILD_NUMBER}
                 build: ./email-service
                 depends_on:
                          - mongo-service
                          - aes-encryption-service
         session-token-service:
-                image: michealbmullin/projsession:{BUILD_NUMBER}
+                image: michealbmullin/projsession:${BUILD_NUMBER}
                 build: ./session-token-service
                 depends_on:
                         - mongo-service
                         - aes-encryption-service
         aes-encryption-service:
-                image: michealbmullin/projaesencrypt:{BUILD_NUMBER}
+                image: michealbmullin/projaesencrypt:${BUILD_NUMBER}
                 build: ./aes-encryption-service
         account-service:
                 image: michealbmullin/pojaccount
@@ -37,26 +37,26 @@ services:
                 depends_on:
                          - secret-service
         dashboard-service:
-                image: michealbmullin/projdashboardserv:{BUILD_NUMBER}
+                image: michealbmullin/projdashboardserv:${BUILD_NUMBER}
                 build: ./dashboard-service
                 depends_on:
                          - account-service
                          - session-token-service
         authentication-service:
-               image: michealbmullin/projauthenserv:{BUILD_NUMBER}
+               image: michealbmullin/projauthenserv:${BUILD_NUMBER}
                build: ./authentication-service
                depends_on:
                         - account-service
                         - email-service
                         - session-token-service
         dashboard-client:
-               image: michealbmullin/projdashboardcli:{BUILD_NUMBER}
+               image: michealbmullin/projdashboardcli:${BUILD_NUMBER}
                build: ./dashboard-client
         authentication-client:
-               image: michealbmullin/projauthenticationcli:{BUILD_NUMBER}
+               image: michealbmullin/projauthenticationcli:${BUILD_NUMBER}
                build: ./authentication-client
         gateway:
-               image: michealbmullin/projgateway:{BUILD_NUMBER}
+               image: michealbmullin/projgateway:${BUILD_NUMBER}
                build: ./gateway
                ports:
                    - target: 80
