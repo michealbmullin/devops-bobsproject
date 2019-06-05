@@ -22,8 +22,6 @@ services:
                 depends_on:
                          - mongo-service
                          - aes-encryption-service
-                env_file:
-                       - ~/email-variables.env
         session-token-service:
                 image: michealbmullin/projsession:{BUILD_NUMBER}
                 build: ./session-token-service
