@@ -1,7 +1,7 @@
 # Devops-mini-project
 simple gateway app built using microservices, rebuilt using docker and docker compose
 the project architecture can be seen in the diagram below
-![Diagram](https://github.com/michealbmullin/devops-bobsproject/edit/master/archetecture diagram.png)
+![Diagram](https://github.com/michealbmullin/devops-bobsproject/blob/master/archetecture%20diagram.png)
 
 # project contents
 this repository contains the source files as well as docker files for each individual service.
@@ -13,4 +13,4 @@ images can be build from the main directory using docker-compose build
 and all services can be lauched with docker-compose up
 
 these files are used as the basis of a CI-pipleline of this project and a seperate project utilising kuberentes.
-![Diagram](https://github.com/michealbmullin/devops-bobsproject/edit/master/compose pipeline.png)
+![Diagram](https://github.com/michealbmullin/devops-bobsproject/blob/master/compose%20pipeline.png)
