@@ -1,3 +1,4 @@
-# devops-mini-project
+# Devops-mini-project
 simple gateway app built using microservices, rebuilt using docker and docker compose
+the project architecture can be seen in the diagram below
 ![Diagram](https://github.com/michealbmullin/devops-bobsproject/commit/9377e8df86eebbb0e6789aae20294d251cd146ee)
